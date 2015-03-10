@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.5">
+        
+        <TextView
+            android:id="@+id/txt_centros"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:background="#FFFFFF"
+            android:text="Mostrar centros"/>
+        
+        <TextView
+            android:id="@+id/text_2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:background="#FFFFFF"
+            android:text="ir centro mas cercano"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.5">
+        
+        <TextView
+            android:id="@+id/txt_centro_mas_cercano"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:background="#FFFFFF"
+            android:text="Centro mas cercan"/>
+        
+        <TextView
+            android:id="@+id/text_3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:background="#FFFFFF"
+            android:text=""/>
+    </LinearLayout>
+</LinearLayout>
