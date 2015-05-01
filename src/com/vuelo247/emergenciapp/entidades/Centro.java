@@ -7,6 +7,34 @@ public class Centro {
 	String ubicacion;
 	String latitud;
 	String longitud;
+	String direccion;
+	String telefono;
+	String email;
+	String colectivos;
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getColectivos() {
+		return colectivos;
+	}
+	public void setColectivos(String colectivos) {
+		this.colectivos = colectivos;
+	}
 	double distancia;
 	
 	public double getDistancia() {

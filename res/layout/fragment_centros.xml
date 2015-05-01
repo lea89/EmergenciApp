@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_renglon_drawer"
+        android:padding="10dp">
+        
+        <ImageView
+            android:id="@+id/img_centros_informacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ic_centros_salud"
+            android:layout_alignParentRight="true"/>
+        
+        <TextView
+            android:id="@+id/txt_centros_informacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/informacion_util"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/rojo"
+            android:textAllCaps="true"/>
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/relative_centros_higa"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_renglon_drawer"
+        android:padding="10dp">
+        
+        <ImageView
+            android:id="@+id/img_centros_higa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ic_higa"
+            android:layout_alignParentRight="true"/>
+        
+        <TextView
+            android:id="@+id/txt_centros_higa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/higa"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/verde_nombre"
+            android:textAllCaps="true"/>
+        
+        <TextView
+            android:id="@+id/txt_centros_direccion_higa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/direccion_higa"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/verde_nombre"
+            android:layout_below="@+id/txt_centros_higa"
+            android:textAllCaps="true"/>
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/relative_centros_hiemi"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_renglon_drawer"
+        android:padding="10dp">
+        
+        <ImageView
+            android:id="@+id/img_centros_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ic_hiemi"
+            android:layout_alignParentRight="true"/>
+        
+        <TextView
+            android:id="@+id/txt_centros_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/verde_nombre"
+            android:text="@string/hiemi"
+            android:layout_marginLeft="20dp"
+            android:textAllCaps="true"/>
+        
+        <TextView
+            android:id="@+id/txt_centros_direccion_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/direccion_hiemi"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/verde_nombre"
+            android:layout_below="@+id/txt_centros_hiemi"
+            android:textAllCaps="true"/>
+    </RelativeLayout>
+    
+    <ListView
+        android:id="@+id/list_centros"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

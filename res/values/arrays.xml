@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="Tags">
+	    <item>H.I.G.A</item>
+	    <item>H.I.E.M.I</item>
+	    <item>Centro de salud mas cercano</item>
+	    <item>Informacion util</item>
+	    <item>Actualizar centros de salud</item>
+	</string-array>
+	
+	<string-array name="Telefonos">
+	    <item>Emergencias 107</item>
+	    <item>Hosp. Interzonal 477-0262/65-77-0030</item>
+	    <item>Hosp. Materno Infantil 495-2021/2023 494-5262/1407</item>
+	    <item>Hosp. Privado de Comunidad 499-0000/0090</item>
+	    <item>Toxicologia 474-0055</item>
+	    <item>66666</item>
+	</string-array>
+</resources>

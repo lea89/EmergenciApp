@@ -2,45 +2,66 @@
 <resources>
 
     <string name="app_name">EmergenciApp</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+	
 	<string name="key_map">AIzaSyDwC7jvlfgNoUWuwb6LKFbITX89m9OtpNM</string>
-	<string name="db_name">CentrosDB</string>
-	<string name="confirmacion_gps">Se necesita activar el GPS para obtener su posicion. Desea activarlo en este momento?</string>
-	<string name="confirmacion">Confirmación</string>
-	<string name="si">Si</string>
-	<string name="no">No</string>
-	<string name="debe_conectarse">Debe estar conectado a internet</string>
+	
+	<string name="dialog_confirmacion_gps">Para obtener mejor precision se necesita activar el GPS. Desea activarlo ahora?</string>
+	<string name="dialog_confirmacion">Confirmación</string>
+	<string name="dialog_si">Si</string>
+	<string name="dialog_no">No</string>
+	
 	<string name="db_table_centros">Centros_Salud</string>
+	<string name="db_name">CentrosDB</string>
+	
 	<string name="error_crear_ruta">Error al crear ruta</string>
-	<string name="pd_cargando_centros">Cargando centros de salud ...</string>
-	<string name="ws_token">wwfe345gQ3ed5T67g4Dase45F6fer</string>
-	<string name="ws_url">http://gisdesa.mardelplata.gob.ar/opendata/ws.php/centros_de_salud</string>
 	<string name="error_traer_centros">"Error al recuperar centros de salud"</string>
-	<string name="ingresar_direccion">Ingresar domicilio</string>
-	<string name="ingresar_altura">Ingresar altura</string>
-	<string name="siguiente">Siguiente</string>
 	<string name="error_direccion">Debe ingresar una direccion valida</string>
+		
+	<string name="pd_cargando_centros">Cargando centros de salud</string>
+	
+	<string name="ws_token">wwfe345gQ3ed5T67g4Dase45F6fer</string>
+	<string name="ws_url">http://vuelo247.com.ar/restserver/api/wsmuni/centros</string>
+	
+	<string name="latitudHIGA">-37.9932584</string>
+	<string name="longitudHIGA">-57.6012754</string>
+	<string name="latitudMaterno">-38.009675</string>
+	<string name="longitudMaterno">-57.553952</string>
 	
 	
-	<string-array name="Tags">
-	    <item>HIGA</item>
-	    <item>Materno infantil</item>
-	    <item>Centros mas cercano</item>
-	    <item>Centros de salud</item>
-	    <item>Telefonos útiles</item>
-	    <item>Direccion</item>
-	    <item>Angular JS</item>
-	    <item>Python</item>
-	    <item>Ruby</item>
-	</string-array>
+	<string name="font_path_regular">fonts/DINRegular_0.ttf</string>
+	<string name="font_path_medium">fonts/DINMedium.ttf</string>
 	
-	<string-array name="Telefonos">
-	    <item>11111</item>
-	    <item>22222</item>
-	    <item>33333</item>
-	    <item>44444</item>
-	    <item>55555</item>
-	    <item>66666</item>
-	</string-array>
+	<string name="hiemi">H.I.E.M.I</string>
+	<string name="higa">H.I.G.A</string>
+	
+	<string name="telefonos_higa">4770030/4770262/4770265</string>
+	<string name="telefonos_hiemi">4952021/4952022/4952023</string>
+	
+	<string name="colectivos_higa">501-512-542-543-563-571-573-593</string>
+	<string name="colectivos_hiemi">541-542-562-543-562-532-532</string>
+	
+	<string name="sub_higa">Hospital Interzonal General de Agudos</string>
+	<string name="sub_hiemi">Hospital materno infantil</string>
+	
+	<string name="centro_mas_cercano">Centro de salud mas cercano</string>
+	
+	<string name="informacion_util">Informacion util</string>
+	
+	<string name="drawer_open">Abrir navigation drawer</string>
+    <string name="drawer_close">Cerrar navigation drawer</string>
+    
+    <string name="direccion">Direccion: </string>
+    <string name="direccion_hiemi">Castelli 2450 </string>
+    <string name="direccion_higa">Av. Juan B Justo 6701 </string>
+    
+    <string name="email">Email: </string>
+    <string name="colectivos">Colectivos: </string>
+    
+    <string name="presione_para_llamar">Presione el numero al que desea llamar:</string>
+    <string name="ir_al_centro">Ir al centro</string>
+    
+    <string name="sin_conexion">Debe estar conectado a internet para obtener los centros de salud</string>
+    
+    <string name="actualizar_centros_reintentar">Actualizar centros de salud y reintentar</string>
+    
 </resources>

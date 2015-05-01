@@ -8,6 +8,9 @@ public class DrawerItem {
         this.name = name;
         this.iconId = iconId;
     }
+    public DrawerItem(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

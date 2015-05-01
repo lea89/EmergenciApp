@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="blanco">#FFF</color>
+    <color name="negro">#000</color>
+    <color name="rojo">#FF6F59</color>
+    <color name="verde_nombre">#4CBDA1</color>
+    <color name="drawer_gris">#ebebeb</color>
+    <color name="border_item_gris">#e6e6e6</color>
+    <color name="fondo_drawer_gris">#d4d4d4</color>
+</resources>

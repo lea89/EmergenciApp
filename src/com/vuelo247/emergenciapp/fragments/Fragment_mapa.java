@@ -1,6 +1,5 @@
 package com.vuelo247.emergenciapp.fragments;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -37,10 +38,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.vuelo247.emergenciapp.R;
-import com.vuelo247.emergenciapp.adaptadorDrawer.MyInfoWindowAdapter;
+import com.vuelo247.emergenciapp.adaptadorDrawer.AdaptadorMyyInfoWindow;
+import com.vuelo247.emergenciapp.dao.DAOCentros;
 import com.vuelo247.emergenciapp.entidades.Centro;
-import com.vuelo247.emergenciapp.entidades.MyMarker;
-import com.vuelo247.emergenciapp.tareas.DrawRoute;
+import com.vuelo247.emergenciapp.miscellaneous.CheckConnection;
+import com.vuelo247.emergenciapp.miscellaneous.Util;
+import com.vuelo247.emergenciapp.tareas.Tarea_Dibujar_Ruta;
 
 
 
@@ -61,19 +64,29 @@ public class Fragment_mapa extends Fragment
 	
 	int position;
 	
-	private HashMap<Marker, MyMarker> mMarkersHashMap;
+	double[] coordinatesMyPosition;
+
+	LayoutInflater inflater;
 	
-
-    private ArrayList<MyMarker> mMyMarkersArray = new ArrayList<MyMarker>();
-
+	Bundle args;
+	
 	public Fragment_mapa()
 	{
 
 	}
 	
-	public Fragment_mapa(ArrayList<Centro> list_centros,int position)
+	public static Fragment_mapa newInstance(Bundle arguments,int position){
+		Fragment_mapa f = new Fragment_mapa();
+		
+        if(arguments != null){
+            f.setArguments(arguments);
+            f.position = position;
+        }
+        return f;
+    }
+	
+	public Fragment_mapa(int position)
 	{
-		this.list_centros = list_centros;
 		this.position = position;
 	}
 
@@ -81,7 +94,8 @@ public class Fragment_mapa extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		rootView = inflater.inflate(R.layout.fragment_mapa, container, false);
-		
+		this.inflater = inflater;
+
 		return rootView;
 	}
 	
@@ -90,8 +104,8 @@ public class Fragment_mapa extends Fragment
 		super.onActivityCreated(savedInstanceState);
 		
 		recursos = getActivity().getResources();
+		args = getArguments();
 		
-		mMarkersHashMap = new HashMap<Marker, MyMarker>();
 	}
 
 	@Override
@@ -107,19 +121,120 @@ public class Fragment_mapa extends Fragment
 		setUpMapa();
 		setupGPS();
 		
+		DAOCentros dao_centros = new DAOCentros(getActivity(), "CentrosDB", null, 1);
+		
+		list_centros = dao_centros.getCentros();
 		switch (position) 
 		{
 		case 0:
+			coordinatesMyPosition = Util.getGPS(getActivity());
+			
+			double latitud = Double.parseDouble(recursos.getString(R.string.latitudHIGA));
+			double longitud = Double.parseDouble(recursos.getString(R.string.longitudHIGA));
+			
+			LatLng ubicacionHIGA = new LatLng(latitud,longitud);
+			
+			LatLng miPosicion = new LatLng(coordinatesMyPosition[0],coordinatesMyPosition[1]);
+			
+			if(CheckConnection.ConnectTo3G(getActivity()) || CheckConnection.ConnectToWifi(getActivity()))
+			{
+				new Tarea_Dibujar_Ruta(miPosicion, ubicacionHIGA , mapa, getActivity(),0).execute();
+			}
+			else
+			{
+				Toast.makeText(getActivity(), recursos.getString(R.string.sin_conexion), Toast.LENGTH_SHORT).show();
+			}
+			
+			
+			mapa.addMarker(new MarkerOptions()
+     		.position(new LatLng(ubicacionHIGA.latitude, ubicacionHIGA.longitude))
+     		.title(recursos.getString(R.string.higa))
+     		.snippet(recursos.getString(R.string.higa)+"#"+recursos.getString(R.string.sub_higa))
+     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_higa)));
+	
+			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
 			break;
 		case 1:
+			coordinatesMyPosition = Util.getGPS(getActivity());
+			
+			latitud = Double.parseDouble(recursos.getString(R.string.latitudMaterno));
+			longitud = Double.parseDouble(recursos.getString(R.string.longitudMaterno));
+			
+			LatLng ubicacionMaterno = new LatLng(latitud,longitud);
+			
+			miPosicion = new LatLng(coordinatesMyPosition[0],coordinatesMyPosition[1]);
+			
+			mapa.addMarker(new MarkerOptions()
+     		.position(new LatLng(ubicacionMaterno.latitude, ubicacionMaterno.longitude))
+     		.title(recursos.getString(R.string.hiemi))
+     		.snippet(recursos.getString(R.string.hiemi)+"#"+recursos.getString(R.string.sub_hiemi))
+     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hiemi)));
+	
+			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
+			
+			if(CheckConnection.ConnectTo3G(getActivity()) || CheckConnection.ConnectToWifi(getActivity()))
+			{
+			 new Tarea_Dibujar_Ruta(miPosicion, ubicacionMaterno, mapa, getActivity(),1).execute();
+			}
+			else
+			{
+				Toast.makeText(getActivity(), recursos.getString(R.string.sin_conexion), Toast.LENGTH_SHORT).show();
+			}
+			
+			
 			break;
 		case 2:
+			
+			coordinatesMyPosition = Util.getGPS(getActivity());
+
+			miPosicion = new LatLng(coordinatesMyPosition[0],coordinatesMyPosition[1]);
+			
+			oCentro = obtenerCentroMasCercano(list_centros, coordinatesMyPosition[0], coordinatesMyPosition[1]);
+
+			LatLng destino = new LatLng(Double.parseDouble(oCentro.getLatitud()),Double.parseDouble(oCentro.getLongitud()));
+			
+			if(CheckConnection.ConnectTo3G(getActivity()) || CheckConnection.ConnectToWifi(getActivity()))
+			{
+				new Tarea_Dibujar_Ruta(miPosicion, destino, mapa, getActivity(),2).execute();
+			}
+			else
+			{
+				Toast.makeText(getActivity(), recursos.getString(R.string.sin_conexion), Toast.LENGTH_SHORT).show();
+			}
+			
+			mapa.addMarker(new MarkerOptions()
+     		.position(new LatLng(destino.latitude, destino.longitude))
+     		.title(oCentro.getDescripcion())
+     		.snippet(oCentro.getDescripcion()+"#"+oCentro.getDireccion())
+     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_centro)));
+	
+			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
 			break;
 		case 3:
-			addMarkers(list_centros);
+			//addMarkers(list_centros);
 			break;
 		case 4:
-			addMarkers(list_centros);
+			coordinatesMyPosition = Util.getGPS(getActivity());
+
+			miPosicion = new LatLng(coordinatesMyPosition[0],coordinatesMyPosition[1]);
+			
+			destino = new LatLng(Double.parseDouble(args.getString("latitudDestino")),Double.parseDouble(args.getString("longitudDestino")));
+			
+			if(CheckConnection.ConnectTo3G(getActivity()) || CheckConnection.ConnectToWifi(getActivity()))
+			{
+				new Tarea_Dibujar_Ruta(miPosicion, destino, mapa, getActivity(),2).execute();
+			}
+			else
+			{
+				Toast.makeText(getActivity(), recursos.getString(R.string.sin_conexion), Toast.LENGTH_SHORT).show();
+			}
+			
+			 mapa.addMarker(new MarkerOptions()
+     		.position(new LatLng(destino.latitude, destino.longitude))
+     		.snippet(args.getString("descripcion")+"#"+args.getString("direccion"))
+     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_centro)));
+	
+			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,2));
 			break;
 		default:
 			break;
@@ -132,6 +247,10 @@ public class Fragment_mapa extends Fragment
 		
 	private void setFragment()
 	{
+		GoogleMapOptions op = new GoogleMapOptions();
+		op.zOrderOnTop(true);
+//		SupportMapFragment.newInstance(op);
+		
 		mMap = SupportMapFragment.newInstance();
 	
 		FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
@@ -139,6 +258,8 @@ public class Fragment_mapa extends Fragment
 		fragmentTransaction.add(R.id.map_root, mMap);
 		
 		fragmentTransaction.commit();
+		
+		
 	}
 
 	private void setUpMapa()
@@ -146,8 +267,9 @@ public class Fragment_mapa extends Fragment
 		mapa = mMap.getMap();
 
 		mapa.setMyLocationEnabled(true);
-
+		
 		mapa.getUiSettings().setRotateGesturesEnabled(true);
+		
 		
 		mapa.setOnMyLocationChangeListener(new OnMyLocationChangeListener()
 		{
@@ -197,65 +319,29 @@ public class Fragment_mapa extends Fragment
 			@Override
 			public boolean onMyLocationButtonClick() {
 
-				LatLng ubicacion = new LatLng(mapa.getMyLocation().getLatitude(),
-						mapa.getMyLocation().getLongitude());
-				
-				switch(position)
-				{
-					case 0:
-					{
-						double latitud = Double.parseDouble("-37.9932584");
-						double longitud = Double.parseDouble("-57.6012754");
-						
-						LatLng ubicacionHIGA = new LatLng(latitud,longitud);
-						
-						Marker m = mapa.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.cruz_roja)).position(ubicacionHIGA));
-						
-						new DrawRoute(ubicacion, ubicacionHIGA, mapa, getActivity()).execute();
-						break;
-					}
-					case 1:
-					{
-						double latitud = Double.parseDouble("-38.0062782");
-						double longitud = Double.parseDouble("-57.5620937");
-						
-						LatLng ubicacionHIGA = new LatLng(latitud,longitud);
-						
-						Marker m = mapa.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.cruz_roja)).position(ubicacionHIGA));
-						
-						new DrawRoute(ubicacion, ubicacionHIGA, mapa, getActivity()).execute();
-						break;
-					}
-					case 2:
-					{
-						oCentro = obtenerCentroMasCercano(list_centros, ubicacion.latitude, ubicacion.longitude);
-						
-						LatLng destino = new LatLng(Double.parseDouble(oCentro.getLatitud()),Double.parseDouble(oCentro.getLongitud()));
-						
-						new DrawRoute(ubicacion, destino, mapa, getActivity()).execute();
-						
-						Marker m = mapa.addMarker(new MarkerOptions()
-						.position(destino));
-						break;
-					}
+				if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+					locationManager.requestLocationUpdates(
+							LocationManager.GPS_PROVIDER, 1000, 100, listenerGPS);
+					LatLng ubicacion = new LatLng(mapa.getMyLocation().getLatitude(),
+							mapa.getMyLocation().getLongitude());
+					
+					mapa.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+					
+					
+					
+					CameraPosition camPos = new CameraPosition.Builder()
+							.target(ubicacion).zoom(14) // Establecemos el zoom en 14
+							.build();
+					
+					CameraUpdate camUpd3 = CameraUpdateFactory
+							.newCameraPosition(camPos);
+					
+					mapa.animateCamera(camUpd3);
+				} else {
+					DialogoConfirmacion dialog = new DialogoConfirmacion();
+					dialog.show(getActivity().getSupportFragmentManager(),
+							recursos.getString(R.string.dialog_confirmacion));
 				}
-				
-//				MyInfoWindowAdapter infoWindowAdapter = new MyInfoWindowAdapter();
-				
-//				mapa.setInfoWindowAdapter(infoWindowAdapter);
-				
-				mapa.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-				
-				
-				
-				CameraPosition camPos = new CameraPosition.Builder()
-						.target(ubicacion).zoom(14) // Establecemos el zoom en 14
-						.build();
-				
-				CameraUpdate camUpd3 = CameraUpdateFactory
-						.newCameraPosition(camPos);
-				
-				mapa.animateCamera(camUpd3);
 				return false;
 			}
 		});
@@ -270,7 +356,7 @@ public class Fragment_mapa extends Fragment
 	
 	private Centro obtenerCentroMasCercano(ArrayList<Centro> list_centros,double latitud, double longitud)
 	{
-		Centro oCentro = new Centro();
+		Centro oCentro;
 		
 		Location locationA = new Location("point A");
 		
@@ -321,8 +407,7 @@ public class Fragment_mapa extends Fragment
 		} else {
 			DialogoConfirmacion dialog = new DialogoConfirmacion();
 			dialog.show(getActivity().getSupportFragmentManager(),
-					recursos.getString(R.string.confirmacion));
-
+					recursos.getString(R.string.dialog_confirmacion));
 		}
 	}
 
@@ -332,47 +417,24 @@ public class Fragment_mapa extends Fragment
 		double latitud;
 		double longitud;
 		
-		LatLng ubicacionHIGA = new LatLng(Double.parseDouble("-37.993360"),Double.parseDouble("-57.601275"));
 		
 		for(int i = 0; i < list_centros.size(); i++)
 		{
-			latitud = Double.parseDouble(list_centros.get(i).getLatitud());
-			longitud = Double.parseDouble(list_centros.get(i).getLongitud());
+			Centro oCentro = list_centros.get(i);
+			latitud = Double.parseDouble(oCentro.getLatitud());
+			longitud = Double.parseDouble(oCentro.getLongitud());
 			
-	        mMyMarkersArray.add(new MyMarker(list_centros.get(i).getDescripcion(), list_centros.get(i).getUbicacion(), latitud, longitud));
-			
+	        mapa.addMarker(new MarkerOptions()
+	        		.position(new LatLng(latitud, longitud))
+	        		.title(oCentro.getDescripcion())
+	        		.snippet(oCentro.getDescripcion()+"#"+oCentro.getDireccion())
+	        		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_centro)));
 		}
 		
-		plotMarkers(mMyMarkersArray);
-		
-//		Marker markerHIGA = mapa.addMarker(new MarkerOptions()
-//		.position(ubicacionHIGA));
-//		markerHIGA.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.cruz_roja));
-		
+		mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
 	}
 	
-	private void plotMarkers(ArrayList<MyMarker> markers)
-    {
-        if(markers.size() > 0)
-        {
-            for (MyMarker myMarker : markers)
-            {
-
-                // Create user marker with custom icon and other options
-                MarkerOptions markerOption = new MarkerOptions().position(new LatLng(myMarker.getLatitude(), myMarker.getLongitude()));
-//                markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.currentlocation_icon));
-
-                Marker currentMarker = mapa.addMarker(markerOption);
-                mMarkersHashMap.put(currentMarker,myMarker);
-
-                mapa.setInfoWindowAdapter(new MyInfoWindowAdapter(getActivity(),mMarkersHashMap));
-            }
-        }
-    }
-	
-	
-
-	public class LocationListener implements android.location.LocationListener,
+		public class LocationListener implements android.location.LocationListener,
 			Listener {
 		public void onLocationChanged(Location location) {
 			
@@ -409,9 +471,9 @@ public class Fragment_mapa extends Fragment
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-			builder.setMessage(recursos.getString(R.string.confirmacion_gps))
-					.setTitle(recursos.getString(R.string.confirmacion))
-					.setPositiveButton(recursos.getString(R.string.si),
+			builder.setMessage(recursos.getString(R.string.dialog_confirmacion_gps))
+					.setTitle(recursos.getString(R.string.dialog_confirmacion))
+					.setPositiveButton(recursos.getString(R.string.dialog_si),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
@@ -421,12 +483,11 @@ public class Fragment_mapa extends Fragment
 									dialog.cancel();
 								}
 							})
-					.setNegativeButton(recursos.getString(R.string.no),
+					.setNegativeButton(recursos.getString(R.string.dialog_no),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
 									dialog.cancel();
-									getActivity().finish();
 								}
 							});
 

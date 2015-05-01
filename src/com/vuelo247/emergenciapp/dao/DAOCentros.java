@@ -30,7 +30,10 @@ public class DAOCentros extends SQLiteOpenHelper {
 			+ ", ubicacion TEXT" 
 			+ ", latitud TEXT"
 			+ ", longitud TEXT" 
-			+ ", distancia REAL)";
+			+ ", telefono TEXT"
+			+ ", direccion TEXT"
+			+ ", email TEXT"
+			+ ", colectivos TEXT)";
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -48,6 +51,7 @@ public class DAOCentros extends SQLiteOpenHelper {
 
 		String insertSQL = "";
 
+		
 		for (int i = 0; i < list_centros.size(); i++) {
 			insertSQL = "INSERT INTO Centros_Salud VALUES (";
 			insertSQL += +list_centros.get(i).getCodigo();
@@ -55,7 +59,10 @@ public class DAOCentros extends SQLiteOpenHelper {
 			insertSQL += ",'" + list_centros.get(i).getUbicacion() + "'";
 			insertSQL += ",'" + list_centros.get(i).getLatitud() + "'";
 			insertSQL += ",'" + list_centros.get(i).getLongitud() + "'";
-			insertSQL += "," + list_centros.get(i).getDistancia() + ")";
+			insertSQL += ",'" + list_centros.get(i).getTelefono()+ "'";
+			insertSQL += ",'" + list_centros.get(i).getDireccion() + "'";
+			insertSQL += ",'" + list_centros.get(i).getEmail() + "'";
+			insertSQL += ",'" + list_centros.get(i).getColectivos() + "')";
 
 			db.execSQL(insertSQL);
 		}
@@ -79,6 +86,10 @@ public class DAOCentros extends SQLiteOpenHelper {
 			oCentro.setUbicacion(cursor.getString(2));
 			oCentro.setLatitud(cursor.getString(3));
 			oCentro.setLongitud(cursor.getString(4));
+			oCentro.setTelefono(cursor.getString(5));
+			oCentro.setDireccion(cursor.getString(6));
+			oCentro.setEmail(cursor.getString(7));
+			oCentro.setColectivos(cursor.getString(8));
 
 			list_centros.add(oCentro);
 		}
@@ -96,33 +107,34 @@ public class DAOCentros extends SQLiteOpenHelper {
 		db.execSQL(sql);
 		db.close();
 	}
-	
-	public Centro getCentroMasCercano(double distancia)
+
+	public Centro getCentro(int codigo) 
 	{
+		Centro oCentro = new Centro();
 		
-		String sql = "SELECT latitud,longitud,distancia FROM "+table+" WHERE distancia = "+distancia;
+		String sql = "SELECT * FROM "
+				+ context.getResources().getString(R.string.db_table_centros)+" WHERE codigo = "+codigo;
 
 		db = getWritableDatabase();
 
 		Cursor cursor = db.rawQuery(sql, null);
 
-		Centro oCentro = new Centro();
-		
-		ArrayList<Centro> list = new ArrayList<Centro>();
-		
 		while (cursor.moveToNext()) {
 			
-//			oCentro.setCodigo(cursor.getInt(0));
-//			oCentro.setDescripcion(cursor.getString(1));
-//			oCentro.setUbicacion(cursor.getString(2));
-			oCentro.setLatitud(cursor.getString(0));
-			oCentro.setLongitud(cursor.getString(1));
-			oCentro.setDistancia(cursor.getDouble(2));
+			oCentro.setCodigo(cursor.getInt(0));
+			oCentro.setDescripcion(cursor.getString(1));
+			oCentro.setUbicacion(cursor.getString(2));
+			oCentro.setLatitud(cursor.getString(3));
+			oCentro.setLongitud(cursor.getString(4));
+			oCentro.setTelefono(cursor.getString(5));
+			oCentro.setDireccion(cursor.getString(6));
+			oCentro.setEmail(cursor.getString(7));
+			oCentro.setColectivos(cursor.getString(8));
 		}
 		cursor.close();
 		db.close();
-		
 		return oCentro;
 	}
+
 
 }

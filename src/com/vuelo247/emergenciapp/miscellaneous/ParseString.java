@@ -117,6 +117,22 @@ public class ParseString extends DefaultHandler
 		    {
 		    	centro.setLongitud(builder.toString());
 		    }
+		    else if(localName.equals("telefono"))
+		    {
+		    	centro.setTelefono(builder.toString());
+		    }
+		    else if(localName.equals("direccion"))
+		    {
+		    	centro.setDireccion(builder.toString());
+		    }
+		    else if(localName.equals("email"))
+		    {
+		    	centro.setEmail(builder.toString());
+		    }
+		    else if(localName.equals("colectivos"))
+		    {
+		    	centro.setColectivos(builder.toString());
+		    }
     }
  
     
