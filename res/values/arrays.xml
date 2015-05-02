@@ -3,9 +3,9 @@
 	<string-array name="Tags">
 	    <item>H.I.G.A</item>
 	    <item>H.I.E.M.I</item>
-	    <item>Centro de salud mas cercano</item>
+	    <item>Centro mas cercano</item>
 	    <item>Informacion util</item>
-	    <item>Actualizar centros de salud</item>
+	    <item>Actualizar centros</item>
 	</string-array>
 	
 	<string-array name="Telefonos">

@@ -24,7 +24,6 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="15dp"
             android:layout_toLeftOf="@+id/img_item_centro"
-            android:textAllCaps="true"
             android:textColor="@color/rojo" />
     </RelativeLayout>
 
@@ -40,8 +39,7 @@
             android:id="@+id/txt_item_centro_direccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textAllCaps="true" />
+            android:layout_alignParentLeft="true"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,8 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp"
-            android:textAllCaps="true" />
+            android:layout_marginTop="15dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -74,8 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp"
-            android:textAllCaps="true" />
+            android:layout_marginTop="15dp" />
     </RelativeLayout>
 
     <TextView
@@ -85,8 +81,7 @@
         android:layout_below="@+id/relative_item_centro_email"
         android:layout_centerHorizontal="true"
         android:text="@string/presione_para_llamar"
-        android:layout_marginTop="15dp" 
-        android:textAllCaps="true" />
+        android:layout_marginTop="15dp"  />
 
     <ListView
         android:id="@+id/list_item_centro_telefonos"

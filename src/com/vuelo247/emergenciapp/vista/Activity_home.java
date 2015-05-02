@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,6 +80,8 @@ public class Activity_home extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
+		float density = getResources().getDisplayMetrics().density;
+		Log.v("EmergenciApp",density+"");
 		dao_centros = new DAOCentros(Activity_home.this,
 				"CentrosDB", null, 1);
 
@@ -110,6 +113,8 @@ public class Activity_home extends ActionBarActivity {
 		levantarXML();
 		
 		setCustomActionBar();
+		
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		setupGPS();
 		
@@ -124,7 +129,7 @@ public class Activity_home extends ActionBarActivity {
 		items.add(new DrawerItem(tagTitles[1], R.drawable.ic_hiemi));
 		items.add(new DrawerItem(tagTitles[2], R.drawable.ic_mas_cercano));
 		items.add(new DrawerItem(tagTitles[3], R.drawable.ic_centros_salud));
-		items.add(new DrawerItem(tagTitles[4], R.drawable.ic_actualizar));
+		items.add(new DrawerItem(tagTitles[4], R.drawable.actualizar));
 
 		drawerList.setAdapter(new Adaptador_DrawerList(this, items));
 

@@ -31,25 +31,14 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
-        <activity
-            android:name="com.vuelo247.emergenciapp.vista.Activity_mapa"
-            android:label="@string/app_name" >
-        </activity>
         
         <activity
-            android:name="com.vuelo247.emergenciapp.vista.Activity_home"
-            android:label="@string/app_name" >
+            android:name="com.vuelo247.emergenciapp.vista.Activity_home" >
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        
-        <activity
-            android:name="com.vuelo247.emergenciapp.vista.Activity_inicio"
-            android:label="@string/app_name" >
-           
         </activity>
 
         <meta-data

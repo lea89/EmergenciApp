@@ -14,7 +14,7 @@
 	<string name="db_name">CentrosDB</string>
 	
 	<string name="error_crear_ruta">Error al crear ruta</string>
-	<string name="error_traer_centros">"Error al recuperar centros de salud"</string>
+	<string name="error_traer_centros">Error al recuperar centros de salud</string>
 	<string name="error_direccion">Debe ingresar una direccion valida</string>
 		
 	<string name="pd_cargando_centros">Cargando centros de salud</string>
@@ -40,15 +40,13 @@
 	<string name="colectivos_higa">501-512-542-543-563-571-573-593</string>
 	<string name="colectivos_hiemi">541-542-562-543-562-532-532</string>
 	
-	<string name="sub_higa">Hospital Interzonal General de Agudos</string>
-	<string name="sub_hiemi">Hospital materno infantil</string>
+	<string name="sub_higa"><![CDATA[Hospital Interzonal General de Agudos \n(Atención de 15 años en adelante)]]></string>
+	<string name="sub_hiemi"><![CDATA[Hospital Interzonal Especializado Materno Infantil (Atención de 0 a 14 años)]]></string>
 	
-	<string name="centro_mas_cercano">Centro de salud mas cercano</string>
+	<!-- <string name="centro_mas_cercano">Centro de salud mas cercano</string> -->
+	<string name="centro_mas_cercano"><![CDATA[Centro de salud\nmas cercano]]></string>
 	
-	<string name="informacion_util">Informacion util</string>
-	
-	<string name="drawer_open">Abrir navigation drawer</string>
-    <string name="drawer_close">Cerrar navigation drawer</string>
+	<string name="informacion_util">Información util</string>
     
     <string name="direccion">Direccion: </string>
     <string name="direccion_hiemi">Castelli 2450 </string>

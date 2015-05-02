@@ -26,9 +26,8 @@
             android:layout_below="@+id/img_higa"
             android:layout_marginTop="20dp"
             android:text="@string/sub_higa"
-            android:textAllCaps="true"
             android:textColor="@color/rojo"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_higa"
@@ -74,9 +73,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:text="@string/centro_mas_cercano"
-                android:textAllCaps="true"
                 android:textColor="@color/rojo"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -104,9 +102,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/informacion_util"
-                android:textAllCaps="true"
                 android:textColor="@color/rojo"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -136,10 +133,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="@string/sub_hiemi"
-            android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/rojo"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_hiemi"
