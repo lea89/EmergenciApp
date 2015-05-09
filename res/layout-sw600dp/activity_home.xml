@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp" >
+
+    <RelativeLayout
+        android:id="@+id/relative_higa"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_renglon_drawer"
+        android:padding="20dp" >
+
+        <ImageView
+            android:id="@+id/img_higa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/ic_higa" />
+
+        <TextView
+            android:id="@+id/txt_sub_higa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_higa"
+            android:layout_marginTop="20dp"
+            android:text="@string/sub_higa"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/rojo"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_higa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_higa"
+            android:layout_alignLeft="@+id/txt_sub_higa"
+            android:layout_marginLeft="20dp"
+            android:text="@string/higa"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/verde_nombre"
+            android:textSize="35sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative_higa"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/relative_centro_mas_cercano"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_renglon_drawer"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/img_centro_mas_cercano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_mas_cercano" />
+
+            <TextView
+                android:id="@+id/txt_centro_mas_cercano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_centro_mas_cercano"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="@string/centro_mas_cercano"
+                android:textColor="@color/rojo"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_informacion_util"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_renglon_drawer"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/img_informacion_util"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_centros_salud" />
+
+            <TextView
+                android:id="@+id/txt_informacion_util"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/informacion_util"
+                android:textColor="@color/rojo"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_hiemi"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_renglon_drawer"
+        android:padding="20dp" >
+
+        <ImageView
+            android:id="@+id/img_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/ic_hiemi" />
+
+        <TextView
+            android:id="@+id/txt_sub_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_hiemi"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/sub_hiemi"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/rojo"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_hiemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txt_sub_hiemi"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/hiemi"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/verde_nombre"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content_frame"
+        android:layout_below="@+id/relative_hiemi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

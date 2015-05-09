@@ -3,7 +3,7 @@
 
     <string name="app_name">EmergenciApp</string>
 	
-	<string name="key_map">AIzaSyDwC7jvlfgNoUWuwb6LKFbITX89m9OtpNM</string>
+	<string name="key_map">AIzaSyBfqBnSfhLGYw_ZJ7AYdkKq89kjjAQcCE8</string>
 	
 	<string name="dialog_confirmacion_gps">Para obtener mejor precision se necesita activar el GPS. Desea activarlo ahora?</string>
 	<string name="dialog_confirmacion">Confirmación</string>

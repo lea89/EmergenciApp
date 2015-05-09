@@ -12,6 +12,7 @@ import android.location.GpsStatus.Listener;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -164,13 +165,13 @@ public class Fragment_mapa extends Fragment
 			
 			miPosicion = new LatLng(coordinatesMyPosition[0],coordinatesMyPosition[1]);
 			
-			mapa.addMarker(new MarkerOptions()
-     		.position(new LatLng(ubicacionMaterno.latitude, ubicacionMaterno.longitude))
-     		.title(recursos.getString(R.string.hiemi))
-     		.snippet(recursos.getString(R.string.hiemi)+"#"+recursos.getString(R.string.sub_hiemi))
-     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hiemi)));
+//			mapa.addMarker(new MarkerOptions()
+//     		.position(new LatLng(ubicacionMaterno.latitude, ubicacionMaterno.longitude))
+//     		.title(recursos.getString(R.string.hiemi))
+//     		.snippet(recursos.getString(R.string.hiemi)+"#"+recursos.getString(R.string.sub_hiemi))
+//     		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hiemi)));
 	
-			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
+//			 mapa.setInfoWindowAdapter(new AdaptadorMyyInfoWindow(inflater,position));
 			
 			if(CheckConnection.ConnectTo3G(getActivity()) || CheckConnection.ConnectToWifi(getActivity()))
 			{
@@ -264,88 +265,97 @@ public class Fragment_mapa extends Fragment
 
 	private void setUpMapa()
 	{
-		mapa = mMap.getMap();
+		Handler handler = new Handler();
+		
+		handler.postDelayed(new Runnable() 
+		{
 
-		mapa.setMyLocationEnabled(true);
-		
-		mapa.getUiSettings().setRotateGesturesEnabled(true);
-		
-		
-		mapa.setOnMyLocationChangeListener(new OnMyLocationChangeListener()
-		{
-			@Override
-			public void onMyLocationChange(Location location)
-			{
-				
-			}
-		});
-		
-		mapa.setOnMapLongClickListener(new OnMapLongClickListener()
-		{
-			@Override
-			public void onMapLongClick(LatLng mapPoint)
-			{
-				
-			}
-		});
-		mapa.setOnMapClickListener(new OnMapClickListener()
-		{
-			public void onMapClick(LatLng punto)
-			{
-
-			}
-		});
-		mapa.setOnMarkerClickListener(new OnMarkerClickListener()
-		{
-			@Override
-			public boolean onMarkerClick(Marker marker)
-			{
-				marker.showInfoWindow();
-				return true;
-				
-			}
-		});
-		mapa.setOnInfoWindowClickListener(new OnInfoWindowClickListener()
-		{
-			@Override
-			public void onInfoWindowClick(Marker arg0)
-			{
-				
-			}
-		});
+		   @Override
+		   public void run() 
+		   {
+			mapa = mMap.getMap();
 	
-		mapa.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+			mapa.setMyLocationEnabled(true);
 			
-			@Override
-			public boolean onMyLocationButtonClick() {
-
-				if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-					locationManager.requestLocationUpdates(
-							LocationManager.GPS_PROVIDER, 1000, 100, listenerGPS);
-					LatLng ubicacion = new LatLng(mapa.getMyLocation().getLatitude(),
-							mapa.getMyLocation().getLongitude());
+			mapa.getUiSettings().setRotateGesturesEnabled(true);
+			
+			
+			mapa.setOnMyLocationChangeListener(new OnMyLocationChangeListener()
+			{
+				@Override
+				public void onMyLocationChange(Location location)
+				{
 					
-					mapa.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-					
-					
-					
-					CameraPosition camPos = new CameraPosition.Builder()
-							.target(ubicacion).zoom(14) // Establecemos el zoom en 14
-							.build();
-					
-					CameraUpdate camUpd3 = CameraUpdateFactory
-							.newCameraPosition(camPos);
-					
-					mapa.animateCamera(camUpd3);
-				} else {
-					DialogoConfirmacion dialog = new DialogoConfirmacion();
-					dialog.show(getActivity().getSupportFragmentManager(),
-							recursos.getString(R.string.dialog_confirmacion));
 				}
-				return false;
-			}
-		});
-
+			});
+			
+			mapa.setOnMapLongClickListener(new OnMapLongClickListener()
+			{
+				@Override
+				public void onMapLongClick(LatLng mapPoint)
+				{
+					
+				}
+			});
+			mapa.setOnMapClickListener(new OnMapClickListener()
+			{
+				public void onMapClick(LatLng punto)
+				{
+	
+				}
+			});
+			mapa.setOnMarkerClickListener(new OnMarkerClickListener()
+			{
+				@Override
+				public boolean onMarkerClick(Marker marker)
+				{
+					marker.showInfoWindow();
+					return true;
+					
+				}
+			});
+			mapa.setOnInfoWindowClickListener(new OnInfoWindowClickListener()
+			{
+				@Override
+				public void onInfoWindowClick(Marker arg0)
+				{
+					
+				}
+			});
+		
+			mapa.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+				
+				@Override
+				public boolean onMyLocationButtonClick() {
+	
+					if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+						locationManager.requestLocationUpdates(
+								LocationManager.GPS_PROVIDER, 1000, 100, listenerGPS);
+						LatLng ubicacion = new LatLng(mapa.getMyLocation().getLatitude(),
+								mapa.getMyLocation().getLongitude());
+						
+						mapa.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+						
+						
+						
+						CameraPosition camPos = new CameraPosition.Builder()
+								.target(ubicacion).zoom(14) // Establecemos el zoom en 14
+								.build();
+						
+						CameraUpdate camUpd3 = CameraUpdateFactory
+								.newCameraPosition(camPos);
+						
+						mapa.animateCamera(camUpd3);
+					} else {
+						DialogoConfirmacion dialog = new DialogoConfirmacion();
+						dialog.show(getActivity().getSupportFragmentManager(),
+								recursos.getString(R.string.dialog_confirmacion));
+					}
+					return false;
+				}
+			});
+		   }
+		}, 500);
 	}
 
 	@Override
